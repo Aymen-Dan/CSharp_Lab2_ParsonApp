@@ -66,6 +66,7 @@ namespace CSharp_Lab2_ParsonApp
                     _dateOfBirth = value;
                     OnPropertyChanged(nameof(DateOfBirth));
                     OnPropertyChanged(nameof(CanProceed));
+                  
                 }
             }
         }
@@ -118,8 +119,8 @@ namespace CSharp_Lab2_ParsonApp
                     string sunSign = person.SunSign;
                     string chineseSign = person.ChineseSign;
                     bool isBirthday = person.IsBirthday;
+                                     
 
-                    /**TODO: CHANGE SEPARATE MESSAGE BOX INTO TEXT APPEARING IN SAME WINDOW*/
 
                     //Print out values
                     MessageBox.Show($"First name: {person.GetFirstName()}\n" +
@@ -131,6 +132,7 @@ namespace CSharp_Lab2_ParsonApp
                                     $"Chinese sign: {chineseSign}\n" +
                                     $"Today is your birthday: {isBirthday}", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
                 });
+
             }
             catch (ArgumentException ex)
             {
