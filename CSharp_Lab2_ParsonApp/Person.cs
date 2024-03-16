@@ -120,7 +120,20 @@ namespace CSharp_Lab2_ParsonApp
 
         private string CalculateChineseSign()
         {
-            return "Chinese Sign!";
+            // The Chinese zodiac cycle starts from the year 1900
+            int startYear = 1900;
+
+            // Calculate the offset from the start year
+            int offset = DateOfBirth.Year - startYear;
+
+            // Define the animal signs in the Chinese zodiac cycle
+            string[] animalSigns = { "Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig" };
+
+            // Calculate the index of the animal sign based on the offset
+            int index = (offset + 12) % 12;
+
+            // Return the corresponding animal sign
+            return animalSigns[index];
         }
 
         private bool CalculateIsBirthday()
