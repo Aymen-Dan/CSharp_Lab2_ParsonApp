@@ -130,7 +130,7 @@ namespace CSharp_Lab2_ParsonApp
             {
                 MessageBox.Show("Happy birthday! May you have excellent health and a lot of luck!", "Birthday", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            return true;
+            return Birthday;
         }
     }
 }
