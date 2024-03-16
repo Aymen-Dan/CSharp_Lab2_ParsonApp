@@ -47,7 +47,7 @@ namespace CSharp_Lab2_ParsonApp
         internal string GetFirstName() => FirstName;
         internal string GetLastName() => LastName;
         internal string GetEmail() => Email;
-        internal DateTime GetDateOfBirth() => DateOfBirth;
+        internal string GetDateOfBirth() => DateOfBirth.ToString("dd/MM/yyyy");
 
 
         //Helper methods
