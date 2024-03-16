@@ -76,63 +76,67 @@ namespace CSharp_Lab2_ParsonApp
         ///Constructor
         public PersonViewModel()
         {
-            ProceedCommand = new RelayCommand(async () => await ProceedAsync(), CanProceed);
+            ProceedCommand = new RelayCommand(async () => await ProceedAsync(), () => CanProceed);
         }
 
         //methods
-        private bool CanProceed()
-        {
-            return !string.IsNullOrEmpty(FirstName)
-                && !string.IsNullOrEmpty(LastName)
-                && !string.IsNullOrEmpty(Email)
-                && DateOfBirth != default;
-        }
+        private bool CanProceed =>
+            !string.IsNullOrEmpty(FirstName)
+            && !string.IsNullOrEmpty(LastName)
+            && !string.IsNullOrEmpty(Email)
+            && DateOfBirth != default;
 
         private async Task ProceedAsync()
         {
-            if (!CanProceed())
+            if (!CanProceed)
             {
                 MessageBox.Show("Please fill in all fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            int age = DateTime.Today.Year - DateOfBirth.Year;
-            if (DateTime.Today < DateOfBirth.AddYears(age))
+            try
             {
-                age--;
+                int age = DateTime.Today.Year - DateOfBirth.Year;
+                if (DateTime.Today < DateOfBirth.AddYears(age))
+                {
+                    age--;
+                }
+
+                if (age < 0 || age > 135)
+                {
+                    MessageBox.Show("Invalid age.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+
+
+                var person = new Person(FirstName, LastName, Email, DateOfBirth);
+                await Task.Run(() =>
+                {
+                    //asynchronous calculations
+                    bool isAdult = person.IsAdult;
+                    string sunSign = person.SunSign;
+                    string chineseSign = person.ChineseSign;
+                    bool isBirthday = person.IsBirthday;
+
+                    /**TODO: CHANGE SEPARATE MESSAGE BOX INTO TEXT APPEARING IN SAME WINDOW*/
+
+                    //Print out values
+                    MessageBox.Show($"First name: {person.GetFirstName()}\n" +
+                                    $"Last name: {person.GetLastName()}\n" +
+                                    $"E-mail: {person.GetEmail()}\n" +
+                                    $"Date of birth: {person.GetDateOfBirth()}\n" +
+                                    $"You are an adult: {isAdult}\n" +
+                                    $"Sun sign: {sunSign}\n" +
+                                    $"Chinese sign: {chineseSign}\n" +
+                                    $"Today is your birthday: {isBirthday}", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
+                });
             }
-
-            if (age < 0 || age > 135)
+            catch (Exception ex)
             {
-                MessageBox.Show("Invalid age.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+
             }
-
-           
-
-            var person = new Person(FirstName, LastName, Email, DateOfBirth);
-            await Task.Run(() =>
-            {
-                //asynchronous calculations
-                bool isAdult = person.IsAdult;
-                string sunSign = person.SunSign;
-                string chineseSign = person.ChineseSign;
-                bool isBirthday = person.IsBirthday;
-
-                /**TODO: CHANGE SEPARATE MESSAGE BOX INTO TEXT APPEARING IN SAME WINDOW*/
-
-                //Print out values
-                MessageBox.Show($"FirstName: {person.GetFirstName()}\n" +
-                                $"LastName: {person.GetLastName()}\n" +
-                                $"Email: {person.GetEmail()}\n" +
-                                $"DateOfBirth: {person.GetDateOfBirth()}\n" +
-                                $"IsAdult: {isAdult}\n" +
-                                $"SunSign: {sunSign}\n" +
-                                $"ChineseSign: {chineseSign}\n" +
-                                $"IsBirthday: {isBirthday}", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
-            });
         }
-
         //INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
