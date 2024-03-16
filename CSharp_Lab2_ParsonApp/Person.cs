@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace CSharp_Lab2_ParsonApp
 {
@@ -62,19 +63,24 @@ namespace CSharp_Lab2_ParsonApp
             return age >= 18;
         }
 
-        private String CalculateSunSign()
+        private string CalculateSunSign()
         {
 
             return "Sun Sign!";
         }
 
-        private String CalculateChineseSign()
+        private string CalculateChineseSign()
         {
             return "Chinese Sign!";
         }
 
         private bool CalculateIsBirthday()
         {
+            bool Birthday = DateOfBirth.Month == DateTime.Today.Month && DateOfBirth.Day == DateTime.Today.Day;
+            if (Birthday)
+            {
+                MessageBox.Show("Happy birthday! May you have excellent health and a lot of luck!", "Birthday", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
             return true;
         }
     }
