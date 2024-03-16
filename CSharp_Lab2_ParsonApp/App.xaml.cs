@@ -12,7 +12,7 @@ namespace CSharp_Lab2_ParsonApp
     {
 
         private bool _isMainWindowShown = false;
-
+        /**TODO: DO SOMETHING ABT DOUBLE WINDOWS*/
         protected override void OnStartup(StartupEventArgs e)
         {
            base.OnStartup(e);
