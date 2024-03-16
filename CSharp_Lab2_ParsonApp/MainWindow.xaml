@@ -29,9 +29,9 @@
         <Label Content="E-mail:" Grid.Row="2"/>
         <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" Margin="5"/>
         <Label Content="Date of birth:" Grid.Row="3"/>
-        <TextBox Text="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="1" Margin="5"/>
+        <DatePicker SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="1" Margin="5"/>
 
-        
+
 
         <Button Content="Proceed" Command="{Binding ProceedCommand}" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="5"/>
     </Grid>
