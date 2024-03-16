@@ -10,9 +10,9 @@ namespace CSharp_Lab2_ParsonApp
 
     public partial class App : Application
     {
-
-        private bool _isMainWindowShown = false;
-        /**TODO: DO SOMETHING ABT DOUBLE WINDOWS*/
+        //WAS CAUSING DOUBLE WINDOWS
+        /*private bool _isMainWindowShown = false;
+        
         protected override void OnStartup(StartupEventArgs e)
         {
            base.OnStartup(e);
@@ -27,7 +27,7 @@ namespace CSharp_Lab2_ParsonApp
                 _isMainWindowShown = true;
             }
             
-        }
+        }*/
     }
 }
 
