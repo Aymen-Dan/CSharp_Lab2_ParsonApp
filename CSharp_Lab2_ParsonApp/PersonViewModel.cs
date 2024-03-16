@@ -8,7 +8,7 @@ namespace CSharp_Lab2_ParsonApp
 {
     public class PersonViewModel : INotifyPropertyChanged
     {
-        // Properties
+        //Properties
         private string _firstName;
         public string FirstName
         {
@@ -73,7 +73,7 @@ namespace CSharp_Lab2_ParsonApp
         //Commands
         public ICommand ProceedCommand { get; }
 
-        ///Constructor
+        ///constructor
         public PersonViewModel()
         {
             ProceedCommand = new RelayCommand(async () => await ProceedAsync(), () => CanProceed);
@@ -132,11 +132,22 @@ namespace CSharp_Lab2_ParsonApp
                                     $"Today is your birthday: {isBirthday}", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
                 });
             }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show($"An argument error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show($"Invalid date format: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             catch (Exception ex)
             {
-
+                //Catch everything else
+                MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+
         //INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
