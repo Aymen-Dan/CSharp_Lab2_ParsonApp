@@ -18,7 +18,11 @@ namespace CSharp_Lab2_ParsonApp
     {
         public MainWindow()
         {
-            InitializeComponent();
+            //Set up ViewModel and bind it to the View
+            var viewModel = new PersonViewModel();
+            DataContext = viewModel;
+            Show();
+           //InitializeComponent();
         }
     }
 }
