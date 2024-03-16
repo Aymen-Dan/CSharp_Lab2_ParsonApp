@@ -59,7 +59,7 @@ namespace CSharp_Lab2_ParsonApp
                 age--;
             }
 
-            // Check if age is 18 or older
+            //check if age is 18 or older
             return age >= 18;
         }
 
