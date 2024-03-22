@@ -26,13 +26,13 @@ namespace CSharp_Lab2_ParsonApp
 
         private string _lastName;
         public string LastName
-        { 
-            get => _lastName;   
+        {
+            get => _lastName;
             set
             {
                 if (_lastName != value)
-                { 
-                    _lastName = value; 
+                {
+                    _lastName = value;
                     OnPropertyChanged(nameof(LastName));
                     OnPropertyChanged(nameof(CanProceed));
                 }
@@ -41,7 +41,7 @@ namespace CSharp_Lab2_ParsonApp
 
         private string _email;
         public string Email
-        { 
+        {
             get => _email;
             set
             {
@@ -66,7 +66,6 @@ namespace CSharp_Lab2_ParsonApp
                     _dateOfBirth = value;
                     OnPropertyChanged(nameof(DateOfBirth));
                     OnPropertyChanged(nameof(CanProceed));
-                  
                 }
             }
         }
@@ -107,31 +106,31 @@ namespace CSharp_Lab2_ParsonApp
             && DateOfBirth != default;
 
 
-        
 
-            private async Task ProceedAsync()
+
+        private async Task ProceedAsync()
+        {
+            if (!CanProceed)
             {
-                if (!CanProceed)
-                {
-                    MessageBox.Show("Please fill in all fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
+                MessageBox.Show("Please fill in all fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
-                try
-                {
+            try
+            {
 
                 //TO-DO: REMAKE THIS AS SEPARATE ERROR CLASS
-               /* int age = DateTime.Today.Year - DateOfBirth.Year;
-                if (DateTime.Today < DateOfBirth.AddYears(age))
-                {
-                    age--;
-                }
+                /* int age = DateTime.Today.Year - DateOfBirth.Year;
+                 if (DateTime.Today < DateOfBirth.AddYears(age))
+                 {
+                     age--;
+                 }
 
-                if (age < 0 || age > 135)
-                {
-                    MessageBox.Show("Invalid age.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }*/
+                 if (age < 0 || age > 135)
+                 {
+                     MessageBox.Show("Invalid age.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                     return;
+                 }*/
 
                 //TO-DO: MAKE SURE ERROR MESSAGE DISAPPEARS IF THE ERROR HAS BEEN CORRECTED
                 //TO-DO: maybe MOVE TO SEPARATE METHOD (?)
@@ -151,7 +150,7 @@ namespace CSharp_Lab2_ParsonApp
                     //Is DoB far away in the past?
                     PersonProbablyDeadException.CheckIfFarPastDateOfBirth(DateOfBirth);
                 }
-                catch (PersonNotBornYetException ex)
+                catch (PersonProbablyDeadException ex)
                 {
                     ErrorMessage = ex.Message;
                     return;
@@ -162,7 +161,7 @@ namespace CSharp_Lab2_ParsonApp
                     //Is email valid? REMEMBER ITS myemail@domain.com
                     InvalidEmailException.CheckEmailIsValid(Email);
                 }
-                catch (PersonNotBornYetException ex)
+                catch (InvalidEmailException ex)
                 {
                     ErrorMessage = ex.Message;
                     return;
@@ -170,44 +169,44 @@ namespace CSharp_Lab2_ParsonApp
 
 
 
-                    var person = new Person(FirstName, LastName, Email, DateOfBirth);
-                    await Task.Run(() =>
-                    {       
-                        //asynchronous calculations
+                var person = new Person(FirstName, LastName, Email, DateOfBirth);
+                await Task.Run(() =>
+                {
+                    //asynchronous calculations
                     bool isAdult = person.IsAdult;
                     string sunSign = person.SunSign;
                     string chineseSign = person.ChineseSign;
                     bool isBirthday = person.IsBirthday;
-                                     
 
 
-                        //Print out values
-                        MessageBox.Show($"First name: {person.GetFirstName()}\n" +
-                                    $"Last name: {person.GetLastName()}\n" +
-                                    $"E-mail: {person.GetEmail()}\n" +
-                                    $"Date of birth: {person.GetDateOfBirth()}\n" +
-                                    $"You are an adult: {isAdult}\n" +
-                                    $"Sun sign: {sunSign}\n" +
-                                    $"Chinese sign: {chineseSign}\n" +
-                                    $"Today is your birthday: {isBirthday}", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
-                    });
+
+                    //Print out values
+                    MessageBox.Show($"First name: {person.GetFirstName()}\n" +
+                                $"Last name: {person.GetLastName()}\n" +
+                                $"E-mail: {person.GetEmail()}\n" +
+                                $"Date of birth: {person.GetDateOfBirth()}\n" +
+                                $"You are an adult: {isAdult}\n" +
+                                $"Sun sign: {sunSign}\n" +
+                                $"Chinese sign: {chineseSign}\n" +
+                                $"Today is your birthday: {isBirthday}", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
+                });
 
 
-                }
-                catch (ArgumentException ex)
-                {
-                    MessageBox.Show($"An argument error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                catch (FormatException ex)
-                {
-                    MessageBox.Show($"Invalid date format: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                catch (Exception ex)
-                {
-                    //Catch everything else
-                    MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
             }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show($"An argument error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show($"Invalid date format: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            /*catch (Exception ex)
+            {
+                //Catch everything else
+                MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }*/
+        }
 
 
         //INotifyPropertyChanged implementation
