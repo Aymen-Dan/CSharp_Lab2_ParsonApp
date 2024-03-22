@@ -8,7 +8,8 @@ namespace CSharp_Lab2_ParsonApp
 {
     class InvalidEmailException : Exception
     {
-        public InvalidEmailException() : base("Invalid email format. Expected format: myemail@domain.com")
+        //TO-DO: DON'T FORGET TO CHANGE
+        public InvalidEmailException() : base("Invalid email: NOT myemail@domain.com")
         {
         }
 
@@ -25,7 +26,7 @@ namespace CSharp_Lab2_ParsonApp
         //TO-DO: REDO THE CHECK
         public static void CheckEmailIsValid(string email)
         {
-            if (email !=  "myemail@domain.com")
+            if (email != "myemail@domain.com")
             {
                 throw new InvalidEmailException();
             }
