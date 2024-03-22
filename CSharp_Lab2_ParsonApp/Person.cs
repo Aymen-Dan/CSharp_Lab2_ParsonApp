@@ -30,6 +30,7 @@ namespace CSharp_Lab2_ParsonApp
             LastName = lastName;
             Email = email;
             DateOfBirth = dateOfBirth.Date;
+
         }
 
         public Person(string firstName, string lastName, DateTime dateOfBirth)
@@ -112,7 +113,7 @@ namespace CSharp_Lab2_ParsonApp
             {
                 return "Aquarius";
             }
-            else // February 19 to March 20
+            else //February 19 to March 20
             {
                 return "Pisces";
             }
@@ -120,19 +121,19 @@ namespace CSharp_Lab2_ParsonApp
 
         private string CalculateChineseSign()
         {
-            // The Chinese zodiac cycle starts from the year 1900
+            //Start from 1900 y
             int startYear = 1900;
 
-            // Calculate the offset from the start year
+            //calculate the offset from the start year
             int offset = DateOfBirth.Year - startYear;
 
-            // Define the animal signs in the Chinese zodiac cycle
+            //animal signs of the Chinese zodiac cycle
             string[] animalSigns = { "Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig" };
 
-            // Calculate the index of the animal sign based on the offset
+            //Calculate index
             int index = (offset + 12) % 12;
 
-            // Return the corresponding animal sign
+            //Return the animal sign
             return animalSigns[index];
         }
 
