@@ -10,8 +10,6 @@ namespace CSharp_Lab2_ParsonApp
     class PersonNotBornYetException : Exception
     {
         //default message constructor
-
-        //TO-DO: COME UP WITH BETTER ERROR TEXT
         public PersonNotBornYetException() : base("Invalid date of birth: From the future.")
         {
         }
@@ -24,14 +22,21 @@ namespace CSharp_Lab2_ParsonApp
         {
         }
 
-        //Helper method to check if a person's date of birth is in the future
+        //Helper method
         public static void CheckIfFutureDateOfBirth(DateTime dateOfBirth)
         {
-            if (dateOfBirth > DateTime.Today)
+            if (IsFromFuture(dateOfBirth))
             {
                 throw new PersonNotBornYetException();
             }
         }
+
+        //helper bool to check if date of birth is from future or not
+        private static bool IsFromFuture(DateTime dateOfBirth)
+        {
+            return dateOfBirth > DateTime.Today;
+        }
+
 
     }
 }
