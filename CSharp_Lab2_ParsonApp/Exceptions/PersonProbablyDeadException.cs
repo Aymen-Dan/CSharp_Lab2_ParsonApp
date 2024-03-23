@@ -20,16 +20,20 @@ namespace CSharp_Lab2_ParsonApp
         {
         }
 
-        //Helper method to check if a person's date of birth is in the future
-
-        //TO-DO: REDO THE CHECK
+        //Helper method
         public static void CheckIfFarPastDateOfBirth(DateTime dateOfBirth)
         {
-            int age = DateTime.Today.Year - dateOfBirth.Year;
-            if (age > 135)
+            if (TooOld(dateOfBirth))
             {
                 throw new PersonProbablyDeadException();
             }
+        }
+
+        //Helper bool to check if a person's date of birth is too far in the past or not
+        private static bool TooOld(DateTime dateOfBirth)
+        {
+            int age = DateTime.Today.Year - dateOfBirth.Year;
+            return age > 135;
         }
     }
 }
