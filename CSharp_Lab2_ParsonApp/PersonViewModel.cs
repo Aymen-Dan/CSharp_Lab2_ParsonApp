@@ -154,7 +154,7 @@ namespace CSharp_Lab2_ParsonApp
                 });
 
 
-            }
+            }//TO-DO: MOVE TO VALIDATEINPUT() IF POSSIBLE
             catch (ArgumentException ex)
             {
                 MessageBox.Show($"An argument error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
