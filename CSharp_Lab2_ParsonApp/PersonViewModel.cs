@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSharp_Lab2_ParsonApp.Exceptions;
+using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
@@ -85,10 +86,11 @@ namespace CSharp_Lab2_ParsonApp
             }
         }
 
-
-
         //Commands
         public ICommand ProceedCommand { get; }
+
+        //helper bool
+        public bool InputValid;
 
 
         ///constructor
@@ -110,64 +112,24 @@ namespace CSharp_Lab2_ParsonApp
 
         private async Task ProceedAsync()
         {
-            if (!CanProceed)
+            /*if (!CanProceed)
             {
-                MessageBox.Show("Please fill in all fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ErrorMessage = "Please fill in all fields.";
+                return;
+            }*/
+
+
+            ValidateInputs(); //Validate inputs
+
+            if (!InputValid)
+            {
+                //ErrorMessage = "NO. BAD.";
                 return;
             }
 
+
             try
             {
-
-                //TO-DO: REMAKE THIS AS SEPARATE ERROR CLASS
-                /* int age = DateTime.Today.Year - DateOfBirth.Year;
-                 if (DateTime.Today < DateOfBirth.AddYears(age))
-                 {
-                     age--;
-                 }
-
-                 if (age < 0 || age > 135)
-                 {
-                     MessageBox.Show("Invalid age.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                     return;
-                 }*/
-
-                //TO-DO: MAKE SURE ERROR MESSAGE DISAPPEARS IF THE ERROR HAS BEEN CORRECTED
-                //TO-DO: maybe MOVE TO SEPARATE METHOD (?)
-                try
-                {
-                    //Is DoB in the future?
-                    PersonNotBornYetException.CheckIfFutureDateOfBirth(DateOfBirth);
-                }
-                catch (PersonNotBornYetException ex)
-                {
-                    ErrorMessage = ex.Message;
-                    return;
-                }
-
-                try
-                {
-                    //Is DoB far away in the past?
-                    PersonProbablyDeadException.CheckIfFarPastDateOfBirth(DateOfBirth);
-                }
-                catch (PersonProbablyDeadException ex)
-                {
-                    ErrorMessage = ex.Message;
-                    return;
-                }
-
-                try
-                {
-                    //Is email valid? REMEMBER ITS myemail@domain.com
-                    InvalidEmailException.CheckEmailIsValid(Email);
-                }
-                catch (InvalidEmailException ex)
-                {
-                    ErrorMessage = ex.Message;
-                    return;
-                }
-
-
 
                 var person = new Person(FirstName, LastName, Email, DateOfBirth);
                 await Task.Run(() =>
@@ -201,11 +163,74 @@ namespace CSharp_Lab2_ParsonApp
             {
                 MessageBox.Show($"Invalid date format: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            /*catch (Exception ex)
+            catch (Exception ex)
             {
                 //Catch everything else
                 MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }*/
+            }
+        }
+
+
+        private void ValidateInputs()
+        {
+            try
+            {
+                //Is DoB in the future?
+                PersonNotBornYetException.CheckIfFutureDateOfBirth(DateOfBirth);
+            }
+            catch (PersonNotBornYetException ex)
+            {
+                ErrorMessage = ex.Message;
+                return;
+            }
+
+            try
+            {
+                //Is DoB far away in the past?
+                PersonProbablyDeadException.CheckIfFarPastDateOfBirth(DateOfBirth);
+            }
+            catch (PersonProbablyDeadException ex)
+            {
+                ErrorMessage = ex.Message;
+                return;
+            }
+
+            try
+            {
+                //Is email valid? @ . MUST HAVE
+                InvalidEmailException.CheckIfEmailIsValid(Email);
+            }
+            catch (InvalidEmailException ex)
+            {
+                ErrorMessage = ex.Message;
+                return;
+            }
+
+            try
+            {
+                //Is first name valid? 
+                InvalidFirstNameException.CheckIfFirstNameIsValid(FirstName);
+            }
+            catch (InvalidFirstNameException ex)
+            {
+                ErrorMessage = ex.Message;
+                return;
+            }
+
+            try
+            {
+                //Is last name valid? 
+                InvalidLastNameException.CheckIfLastNameIsValid(LastName);
+            }
+            catch (InvalidLastNameException ex)
+            {
+                ErrorMessage = ex.Message;
+                return;
+            }
+
+            // Clear error message if no errors
+            ErrorMessage = null;
+            InputValid = true;
         }
 
 
