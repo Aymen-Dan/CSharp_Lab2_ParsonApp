@@ -8,7 +8,6 @@ namespace CSharp_Lab2_ParsonApp
 {
     class InvalidEmailException : Exception
     {
-        //TO-DO: DON'T FORGET TO CHANGE
         public InvalidEmailException() : base("Invalid email: Incorrect format.")
         {
         }
