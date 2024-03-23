@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CSharp_Lab2_ParsonApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="264" Width="289">
+        Title="MainWindow" Height="264" Width="295">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
