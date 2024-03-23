@@ -9,7 +9,7 @@ namespace CSharp_Lab2_ParsonApp
     class InvalidEmailException : Exception
     {
         //TO-DO: DON'T FORGET TO CHANGE
-        public InvalidEmailException() : base("Invalid email: NOT myemail@domain.com")
+        public InvalidEmailException() : base("Invalid email: Incorrect format.")
         {
         }
 
@@ -21,15 +21,20 @@ namespace CSharp_Lab2_ParsonApp
         {
         }
 
-        //Helper method to check if a person's date of birth is in the future
-
-        //TO-DO: REDO THE CHECK
-        public static void CheckEmailIsValid(string email)
+        //Helper method
+        public static void CheckIfEmailIsValid(string email)
         {
-            if (email != "myemail@domain.com")
+            if (!IsValidEmail(email))
             {
                 throw new InvalidEmailException();
             }
         }
+
+        //Helper bool to check if an email is in a valid format
+        private static bool IsValidEmail(string email)
+        {
+            return email.Contains("@") && email.Contains(".");
+        }
+
     }
 }
