@@ -22,7 +22,6 @@ namespace CSharp_Lab2_ParsonApp.Exceptions
         }
 
         //Helper method to check if a person's name has only letters (maybe also `, ' and -)
-
         public static void CheckIfFirstNameIsValid(string name)
         {
             if (!IsValidFirstName(name))
